@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logger
+  labels:
+    app: logger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logger
+  template:
+    metadata:
+      labels:
+        app: logger
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: gke-cluster-1-default-pool-a33b274c-9t2g
+      containers:
+        - image: sripriyan/logger:1.0
+          imagePullPolicy: Always
+          name: logger
+          ports:
+            - containerPort: 8080
