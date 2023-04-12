@@ -57,7 +57,7 @@ def deploy(app, version, nodeName):
 if __name__ == '__main__':
     app = 'reviews'
     version = 'v3'
-    nodeName = 'gke-cluster-1-default-pool-a33b274c-s7tw'
+    nodeName = 'gke-cluster-1-default-pool-a33b274c-hsm7'
     output = deploy(app, version, nodeName)
     print(output.stdout.decode())
     print(output.stderr.decode())

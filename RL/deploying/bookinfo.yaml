@@ -338,7 +338,7 @@ spec:
         securityContext:
           runAsUser: 1000
       nodeSelector:
-        kubernetes.io/hostname: gke-cluster-1-default-pool-a33b274c-9t2g
+        kubernetes.io/hostname: gke-cluster-1-default-pool-a33b274c-g246
       volumes:
       - name: tmp
         emptyDir: {}
