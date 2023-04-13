@@ -4,47 +4,47 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: productpage
+  name: newpp
   labels:
-    app: productpage
-    service: productpage
+    app: newpp
+    service: newpp
 spec:
   ports:
   - port: 9080
     name: http
   selector:
-    app: productpage
+    app: newpp
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: bookinfo-productpage
+  name: bookinfo-newpp
   labels:
-    account: productpage
+    account: newpp
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: productpage-v1
+  name: newpp-v1
   labels:
-    app: productpage
+    app: newpp
     version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: productpage
+      app: newpp
       version: v1
   template:
     metadata:
       labels:
-        app: productpage
+        app: newpp
         version: v1
     spec:
-      serviceAccountName: bookinfo-productpage
+      serviceAccountName: bookinfo-newpp
       containers:
-      - name: productpage
-        image: docker.io/istio/examples-bookinfo-productpage-v1:1.17.0
+      - name: newpp
+        image: docker.io/istio/examples-bookinfo-productpage-v1:1.16.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
