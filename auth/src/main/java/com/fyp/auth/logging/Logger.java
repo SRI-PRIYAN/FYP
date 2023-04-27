@@ -16,7 +16,7 @@ public class Logger {
         HttpEntity<String> requestEntity = new HttpEntity<>(content, headers);
 
         ResponseEntity<String> responseEntity = restTemplate
-                .postForEntity("http://localhost:8081/log", requestEntity, String.class);
+                .postForEntity("http://logger/log", requestEntity, String.class);
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             System.out.println("Successfully Logged: " + content);

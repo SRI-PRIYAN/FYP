@@ -14,8 +14,8 @@ spec:
       labels:
         app: logger
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: gke-cluster-1-default-pool-a33b274c-g246
+      # nodeSelector:
+      #   kubernetes.io/hostname: gke-cluster-1-default-pool-a33b274c-g246
       containers:
         - image: sripriyan/logger:1.0
           imagePullPolicy: Always
