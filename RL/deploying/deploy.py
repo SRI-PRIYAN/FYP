@@ -1,5 +1,7 @@
 import subprocess
+
 import yaml
+
 
 # labels = [(key1, value1), (key2, value2)]
 def matchesAnyLabel(d: dict, labels: list[tuple]):
@@ -22,25 +24,26 @@ def isDeployment(d: dict):
 def getRequiredConfigs(configFileName, app, version, nodeName):
     labels = [("app", app), ("account", app)]
     appConfigs = []
-    
+
     with open(configFileName, 'r') as configFile:
         data = yaml.safe_load_all(configFile)
         for d in data:
             if d is None: break
-            
+
             availableLabels = d['metadata']['labels']
-            
+
             if not matchesAnyLabel(availableLabels, labels):
                 continue
-            
+
             if isDeployment(d):
                 if not hasLabel(availableLabels, ("version", version)):
                     continue
-                d['spec']['template']['spec']['nodeSelector'] = {'kubernetes.io/hostname': nodeName}
+                d['spec']['template']['spec']['nodeSelector'] = {
+                    'kubernetes.io/hostname': nodeName
+                }
             appConfigs.append(d)
-    
-    return appConfigs
 
+    return appConfigs
 
 
 def deploy(app, version, nodeName):
@@ -49,7 +52,11 @@ def deploy(app, version, nodeName):
     with open(f'{app}-{version}.yaml', 'w') as outputFile:
         yaml.dump_all(appConfigs, outputFile)
 
-    output = subprocess.run(['kubectl', 'apply', '-f', f'{app}-{version}.yaml'], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output = subprocess.run(
+        ['kubectl', 'apply', '-f', f'{app}-{version}.yaml'],
+        check=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE)
 
     return output
 
