@@ -1,0 +1,8 @@
+function stop_pod() {
+	for i in {1..50}; 
+	do
+		sudo crictl pods | grep "newpp" | awk '{print \$1}' | head -n1 > pod_id.txt;
+		cat pod_id.txt | xargs  sudo crictl stopp;
+		sleep 1;
+	done;
+}
